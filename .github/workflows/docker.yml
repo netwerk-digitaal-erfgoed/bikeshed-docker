@@ -15,8 +15,7 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: netwerk-digitaal-erfgoed/bikeshed-docker/bikeshed
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: netwerkdigitaalerfgoed/bikeshed
           tag_with_ref: true
