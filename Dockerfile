@@ -5,6 +5,4 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc libxml2-dev libxslt-dev \
     && apk del .build-deps \
     && apk add --no-cache libxslt git
 
-COPY entrypoint.sh /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bikeshed", "spec"]
