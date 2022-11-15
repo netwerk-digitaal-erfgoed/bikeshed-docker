@@ -6,4 +6,4 @@ The image is [available on Docker Hub](https://hub.docker.com/r/netwerkdigitaale
 
 To generate HTML output from your Bikeshed source file, for example `index.bs`:
 
-    docker run -v (pwd):/src netwerk-digitaal-erfgoed/bikeshed bikeshed spec index.bs
+    docker run -v (pwd):/src netwerkdigitaalerfgoed/bikeshed bikeshed spec index.bs
