@@ -23,5 +23,5 @@ jobs:
         with:
           push: true
           tags: |
-            netwerkdigitaalerfgoed/bikeshed:${{ steps.vars.outputs.version_tag }}
+            netwerkdigitaalerfgoed/bikeshed:${{ github.ref_name }}
             netwerkdigitaalerfgoed/bikeshed:latest
