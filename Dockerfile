@@ -1,4 +1,4 @@
-FROM python:3.10-alpine
+FROM python:3-alpine
 
 RUN apk add --no-cache --virtual .build-deps g++ gcc jpeg-dev libxml2-dev libxslt-dev \
     && pip install bikeshed \
