@@ -1,5 +1,8 @@
 name: Push image to Docker Hub
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -38,3 +41,10 @@ jobs:
             netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.full }}
             netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.major }}
             netwerkdigitaalerfgoed/bikeshed:latest
+
+      - name: Create GitHub release
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        run: gh release create "v$VERSION" --title "v$VERSION" --generate-notes || true
+        env:
+          VERSION: ${{ steps.version.outputs.full }}
+          GH_TOKEN: ${{ github.token }}
