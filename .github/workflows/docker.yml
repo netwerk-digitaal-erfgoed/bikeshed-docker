@@ -1,7 +1,9 @@
-name: Push image to GitHub Docker registry
+name: Push image to Docker Hub
 
 on:
   push:
+    branches:
+      - master
     tags:
       - '*'
 
@@ -21,10 +23,25 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - uses: docker/build-push-action@v6
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          load: true
+          tags: netwerkdigitaalerfgoed/bikeshed:build
+
+      - name: Derive Bikeshed version
+        id: version
+        run: |
+          version=$(docker run --rm netwerkdigitaalerfgoed/bikeshed:build pip show bikeshed | awk '/^Version:/ { print $2 }')
+          echo "full=$version" >> "$GITHUB_OUTPUT"
+          echo "minor=${version%.*}" >> "$GITHUB_OUTPUT"
+          echo "major=${version%%.*}" >> "$GITHUB_OUTPUT"
+
+      - name: Push multi-platform image
+        uses: docker/build-push-action@v6
         with:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            netwerkdigitaalerfgoed/bikeshed:${{ github.ref_name }}
+            netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.major }}
             netwerkdigitaalerfgoed/bikeshed:latest
