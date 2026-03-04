@@ -43,5 +43,6 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
+            netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.full }}
             netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.major }}
             netwerkdigitaalerfgoed/bikeshed:latest
