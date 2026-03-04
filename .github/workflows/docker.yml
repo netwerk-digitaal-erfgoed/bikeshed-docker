@@ -1,7 +1,9 @@
-name: Push image to GitHub Docker registry
+name: Push image to Docker Hub
 
 on:
   push:
+    branches:
+      - master
     tags:
       - '*'
 
@@ -21,10 +23,18 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
+      - name: Derive Bikeshed version
+        id: version
+        run: |
+          version=$(grep -oP '(?<===)\S+' requirements.txt)
+          echo "full=$version" >> "$GITHUB_OUTPUT"
+          echo "major=${version%%.*}" >> "$GITHUB_OUTPUT"
+
       - uses: docker/build-push-action@v6
         with:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            netwerkdigitaalerfgoed/bikeshed:${{ github.ref_name }}
+            netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.full }}
+            netwerkdigitaalerfgoed/bikeshed:${{ steps.version.outputs.major }}
             netwerkdigitaalerfgoed/bikeshed:latest

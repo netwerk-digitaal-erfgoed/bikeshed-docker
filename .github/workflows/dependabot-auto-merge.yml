@@ -1,0 +1,8 @@
+name: Auto-merge Dependabot PRs
+
+on:
+  pull_request:
+
+jobs:
+  auto-merge:
+    uses: netwerk-digitaal-erfgoed/workflows/.github/workflows/dependabot-auto-merge.yml@main
