@@ -6,3 +6,4 @@ on:
 jobs:
   auto-merge:
     uses: netwerk-digitaal-erfgoed/workflows/.github/workflows/dependabot-auto-merge.yml@main
+    secrets: inherit
