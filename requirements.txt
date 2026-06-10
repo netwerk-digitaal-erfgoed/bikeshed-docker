@@ -1,1 +1,1 @@
-bikeshed==7.0.12
+bikeshed==7.1.1
