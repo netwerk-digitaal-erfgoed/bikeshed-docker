@@ -1,1 +1,1 @@
-bikeshed==7.2.1
+bikeshed==8.0.3
